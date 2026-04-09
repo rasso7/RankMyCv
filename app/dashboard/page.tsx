@@ -233,11 +233,8 @@ export default function DashboardPage() {
           </button>
 
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg,#2563eb,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
-              <IconFile />
-            </div>
+            <img src="/logo.png" alt="RankMyCV Logo" style={{ height: 36, width: "auto", objectFit: "contain" }} />
             <span style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg,#2563eb,#7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>RankMyCV</span>
-            <span style={{ fontSize: 11, fontWeight: 600, padding: "2px 9px", borderRadius: 999, background: "#eff6ff", color: "#2563eb", border: "1px solid #bfdbfe" }}>ATS Analyzer</span>
           </div>
 
           <div style={{ flex: 1 }} />

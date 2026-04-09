@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ResultsDashboard from "./components/ResultsDashboard";
+import FullPageLoader from "./components/FullPageLoader";
 import type { ATSResult } from "./types";
 
 /* ─── small inline SVGs ─── */
@@ -141,6 +142,8 @@ export default function Home() {
 
 
 
+  if (loading) return <FullPageLoader />;
+
   return (
     <div style={{ background: "#fff", minHeight: "100vh", overflowX: "hidden" }}>
 
@@ -154,7 +157,6 @@ export default function Home() {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            {/* "Get Started" button — always visible, triggers file upload */}
             <button
               className="btn-blue"
               onClick={() => fileInputRef.current?.click()}
@@ -162,41 +164,10 @@ export default function Home() {
             >
               Get Started
             </button>
-
-            {/* API Key toggle — only shown when no server key */}
-            {!hasServerKey && (
-              <button
-                id="api-key-toggle"
-                onClick={() => setShowApiKey(!showApiKey)}
-                style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 500, padding: "8px 16px", borderRadius: 8, border: "1px solid #e2e8f0", background: "transparent", color: "#475569", cursor: "pointer" }}
-              >
-                🔑 API Key
-              </button>
-            )}
           </div>
         </div>
 
-        {!hasServerKey && showApiKey && (
-          <div className="animate-fade-in" style={{ borderTop: "1px solid #e2e8f0", padding: "14px 32px", background: "#f8fafc" }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ fontSize: 13, color: "#64748b", whiteSpace: "nowrap" }}>Gemini API Key</span>
-              <input
-                id="gemini-api-key"
-                type="password"
-                value={apiKey}
-                onChange={e => setApiKey(e.target.value)}
-                placeholder="AIza..."
-                className="input-field"
-                style={{ maxWidth: 320, padding: "9px 14px" }}
-              />
-              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer"
-                style={{ fontSize: 12, color: "#2563eb", textDecoration: "underline", whiteSpace: "nowrap" }}>
-                Get free key →
-              </a>
-              {apiKey && <span style={{ fontSize: 12, color: "#16a34a", display: "flex", alignItems: "center", gap: 4 }}><IconCheck color="#16a34a" />Saved</span>}
-            </div>
-          </div>
-        )}
+
       </nav>
 
       {/* ── Hero ── */}
@@ -373,18 +344,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Loading skeleton ── */}
-      {loading && (
-        <div style={{ maxWidth: 1100, margin: "40px auto", padding: "0 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 16 }}>
-            {[...Array(4)].map((_, i) => <div key={i} className="shimmer" style={{ height: 120 }} />)}
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 16 }}>
-            {[...Array(3)].map((_, i) => <div key={i} className="shimmer" style={{ height: 180 }} />)}
-          </div>
-          <div className="shimmer" style={{ height: 220 }} />
-        </div>
-      )}
+
 
       {/* ── Results ── */}
       {result && !loading && (
