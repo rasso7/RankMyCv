@@ -72,7 +72,7 @@ export default function PdfViewer({ pdfDataUrl }: Props) {
           const ctx = canvas.getContext("2d");
           if (!ctx) continue;
 
-          await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+          await page.render({ canvas, canvasContext: ctx, viewport: renderViewport }).promise;
 
           // Convert canvas → PNG Blob → object URL
           const blobUrl = await new Promise<string>((resolve, reject) => {
